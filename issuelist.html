@@ -4,7 +4,7 @@
  
 <body>
 <div class="container-fluid" ng-app="issue-list" ng-controller="IssueListCtrl">
-	<h2 ng-init="orderBy = 'counter'; orderReverse = false; issueLimit = 10">3.300 OpenUI Issue List
+	<h2 ng-init="orderBy = 'counter'; orderReverse = false; issueLimit = 10">Issue Tracker
 		<div style="float: right; font-size: 16px; color: #888;">
 			<label><input type="checkbox" ng-model="showAll">:| Show all details </label>
 			|
@@ -14,12 +14,12 @@
 	<table class="table table-hover table-striped details" ng-init="startFrom = 0">
 		<thead>
 			<tr>
-				<th ng-repeat="model in issueModel" ng-hide="model.group&&!showAll" style="white-space:nowrap;vertical-align:middle;"><datalist ng-if="model.type=='dropdown'" id="{{model.v}}"><option ng-repeat="item in model.lov | unique" value="{{item}}"/></datalist><span ng-if="model.type&&model.type!='dropdown'">{{model.label}}</span><input ng-if="!model.type" ng-model="filter[model.v]" placeholder="{{model.label}}" size="{{model.label.length+1}}" title="{{model.label}}" class="form-control form-control-inline"><input list="{{model.v}}" ng-if="model.type=='dropdown'" ng-model="filter[model.v]" placeholder="{{model.label}}" size="{{model.label.length+1}}" title="{{model.label}}" class="form-control form-control-inline"><a ng-click="order(model.v);" class="sorter"><span ng-if="orderBy!=model.v" class="glyphicon glyphicon-sort"></span><span ng-if="orderBy==model.v" class="glyphicon" ng-class="orderReverse?'glyphicon-sort-by-attributes-alt':'glyphicon-sort-by-attributes'"></span></a></th>
+				<th ng-repeat="model in issueModel" ng-hide="model.group&&!showAll" style="white-space:nowrap;vertical-align:middle;" ng-class="model.cls"><datalist ng-if="model.type=='dropdown'" id="{{model.v}}"><option ng-repeat="item in model.lov | unique" value="{{item}}"/></datalist><span ng-if="model.type&&model.type!='dropdown'">{{model.label}}</span><input ng-if="!model.type" ng-model="filter[model.v]" placeholder="{{model.label}}" size="{{model.label.length+1}}" title="{{model.label}}" class="form-control form-control-inline"><input list="{{model.v}}" ng-if="model.type=='dropdown'" ng-model="filter[model.v]" placeholder="{{model.label}}" size="{{model.label.length+1}}" title="{{model.label}}" class="form-control form-control-inline"><a ng-click="order(model.v);" class="sorter"><span ng-if="orderBy!=model.v" class="glyphicon glyphicon-sort"></span><span ng-if="orderBy==model.v" class="glyphicon" ng-class="orderReverse?'glyphicon-sort-by-attributes-alt':'glyphicon-sort-by-attributes'"></span></a></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="issue in issueList()" ng-click="selectIssue($index, issue)" ng-class="{'info':$index==selectedIssue}">
-				<td ng-repeat="model in issueModel" ng-switch on="model.type" ng-hide="model.group&&!showAll">
+				<td ng-repeat="model in issueModel" ng-switch on="model.type" ng-hide="model.group&&!showAll" ng-class="model.cls">
 					<span ng-switch-when="date">{{issue[model.v]| date : "mediumDate"}}</span>
 					<span ng-switch-when="boolean"><span class="glyphicon glyphicon-ok" ng-show="issue[model.v]" aria-hidden="true"></span></span>
 					<span ng-switch-when="combinedBoolean"><span class="glyphicon" ng-class="issue[model.target].length>0?'glyphicon-ok-sign':'glyphicon-question-sign'" ng-show="issue[model.v]" aria-hidden="true"></span></span>
@@ -60,9 +60,9 @@
 		</div>
 	</h2>
 	
-	<table class="table" ng-init="newIssue={}">
-		<tr>
-			<td ng-repeat="group in detail.groups" width="{{detail.width[$index]}}%">
+	<div class="table" ng-init="newIssue={}">
+		<div class="row">
+			<div ng-repeat="group in detail.groups" cwidth="{{detail.width[$index]}}%" class="col-md-3 col-sm-6">
 				<dl>
 					<div ng-repeat="i in group">
 						<dt>{{issueModel[i].label}}</dt>
@@ -87,15 +87,15 @@
 						</dd>
 					</div>
 				</dl>
-			</td>
-		</tr>
-	</table>
+			</div>
+		</div>
+	</div>
 </div>
 <footer class="footer">
 	<div class="container">
 		<div class="text-muted">
 			<center>
-				<div>Issue Tracker 0.3 &copy; 2016 Fatih Tavukcu, IBM</div>
+				<div>Issue Tracker 0.4 &copy; 2016 Fatih Tavukcu, IBM</div>
 				<div>Contact me via <a href="mailto:fatih.tavukcu@de.ibm.com">e-mail</a>.</div>
 			</center>
 		</div>

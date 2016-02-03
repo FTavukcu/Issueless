@@ -57,86 +57,104 @@ if (Meteor.isClient) {
 				}, {
 					v: "createdOn",
 					label: "Created on",
-					type: "date"
+					type: "date",
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "createdBy",
 					label: "Created by",
-					group: true
+					group: true,
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "status",
 					label: "Status",
 					type: "dropdown",
-					lov: ["Open", "In work", "Review", "Re-Work", "Re-Review", "Closed", "Cancelled"]
+					lov: ["Open", "In work", "Review", "Re-Work", "Re-Review", "Closed", "Cancelled"],
+					cls: "col-sm-3 col-md-1"
 				}, {
 					v: "criticality",
 					label: "Criticality",
 					type: "dropdown",
-					lov: ["Low", "Medium", "High"]
+					lov: ["Low", "Medium", "High"],
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "ticketNr",
 					label: "Ticket #",
-					group: true
+					group: true,
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "resolvedOn",
 					label: "Resolved on",
 					type: "date",
-					group: true
+					group: true,
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "resolvedBy",
 					label: "Resolved by",
-					group: true
+					group: true,
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "bugOrigin",
 					label: "Bug Origin",
 					type: "dropdown",
-					lov: ["Undetermined", "CRM-T", "Oracle"]
+					lov: ["Undetermined", "CRM-T", "Oracle"],
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "bugType",
 					label: "Bug Type",
 					type: "dropdown",
-					lov: ["Config", "Infra", "EAI/ESB", "UI"]
+					lov: ["Config", "Infra", "EAI/ESB", "UI"],
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "area",
 					label: "Area",
 					group: true,
 					type: "dropdown",
-					lov: ["Other", "KKM", "KM", "OM", "EAI", "Cross"]
+					lov: ["Other", "KKM", "KM", "OM", "EAI", "Cross"],
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "issue",
-					label: "Issue"
+					label: "Issue",
+					cls: "col-sm-8 col-md-3"
 				}, {
 					v: "description",
 					label: "Description",
 					group: true,
-					type: "multi"
+					type: "multi",
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "resolution",
 					label: "Resolution",
-					type: "multi"
+					type: "multi",
+					cls: "hidden-xs hidden-sm col-md-3"
 				}, {
 					v: "documentation",
 					label: "Documentation",
 					group: true,
-					type: "multi"
+					type: "multi",
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "relatedDefects",
 					label: "Related Defects",
-					group: true
+					group: true,
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "oracleFeedbackRequired",
 					label: "Oracle",
 					type: "combinedBoolean",
-					target: "oracleFeedback"
+					target: "oracleFeedback",
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "oracleFeedback",
 					label: "Oracle Feedback",
 					group: true,
-					type: "multi"
+					type: "multi",
+					cls: "hidden-xs hidden-sm"
 				}, {
 					v: "images",
 					label: "Images",
 					group: true,
-					type: "gallery"
+					type: "gallery",
+					cls: "hidden-xs hidden-sm"
 				}
 			];
 			
