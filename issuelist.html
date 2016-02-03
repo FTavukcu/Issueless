@@ -1,0 +1,104 @@
+<head>
+  <title>3.300 Issue List</title>
+</head>
+ 
+<body>
+<div class="container-fluid" ng-app="issue-list" ng-controller="IssueListCtrl">
+	<h2 ng-init="orderBy = 'counter'; orderReverse = false; issueLimit = 10">3.300 OpenUI Issue List
+		<div style="float: right; font-size: 16px; color: #888;">
+			<label><input type="checkbox" ng-model="showAll">:| Show all details </label>
+			|
+			<span>Total issue count: {{issues.length}}</span>
+		</div>
+	</h2>
+	<table class="table table-hover table-striped details" ng-init="startFrom = 0">
+		<thead>
+			<tr>
+				<th ng-repeat="model in issueModel" ng-hide="model.group&&!showAll" style="white-space:nowrap;vertical-align:middle;"><datalist ng-if="model.type=='dropdown'" id="{{model.v}}"><option ng-repeat="item in model.lov | unique" value="{{item}}"/></datalist><span ng-if="model.type&&model.type!='dropdown'">{{model.label}}</span><input ng-if="!model.type" ng-model="filter[model.v]" placeholder="{{model.label}}" size="{{model.label.length+1}}" title="{{model.label}}" class="form-control form-control-inline"><input list="{{model.v}}" ng-if="model.type=='dropdown'" ng-model="filter[model.v]" placeholder="{{model.label}}" size="{{model.label.length+1}}" title="{{model.label}}" class="form-control form-control-inline"><a ng-click="order(model.v);" class="sorter"><span ng-if="orderBy!=model.v" class="glyphicon glyphicon-sort"></span><span ng-if="orderBy==model.v" class="glyphicon" ng-class="orderReverse?'glyphicon-sort-by-attributes-alt':'glyphicon-sort-by-attributes'"></span></a></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="issue in issueList()" ng-click="selectIssue($index, issue)" ng-class="{'info':$index==selectedIssue}">
+				<td ng-repeat="model in issueModel" ng-switch on="model.type" ng-hide="model.group&&!showAll">
+					<span ng-switch-when="date">{{issue[model.v]| date : "mediumDate"}}</span>
+					<span ng-switch-when="boolean"><span class="glyphicon glyphicon-ok" ng-show="issue[model.v]" aria-hidden="true"></span></span>
+					<span ng-switch-when="combinedBoolean"><span class="glyphicon" ng-class="issue[model.target].length>0?'glyphicon-ok-sign':'glyphicon-question-sign'" ng-show="issue[model.v]" aria-hidden="true"></span></span>
+					<span ng-switch-when="multi">{{issue[model.v] | limitTo : 48}}</span>
+					<span ng-switch-when="dropdown" class="lov{{model.v}} {{model.v+model.lov.indexOf(issue[model.v])}}">{{issue[model.v] | limitTo : 32}}</span>
+					<span ng-switch-default>{{issue[model.v] | limitTo : 48}}</span>
+				</td>
+			</tr>
+		</tbody>
+		<tr>
+			<td colspan="100">
+				<div class="col-md-4"><button class="btn btn-block" ng-if="startFrom>0" ng-click="goTo(-10)"><span class="glyphicon glyphicon-chevron-up"></span></button></div>
+				<div class="col-md-4">
+					<center style="line-height: 34px">
+						<span ng-if="filteredIssuesLength>0">Showing {{startFrom+1}} - {{endAt}} / {{filteredIssuesLength}}</span>
+						<span ng-if="filteredIssuesLength==0">No issues found</span>
+					</center>
+				</div>
+				<div class="col-md-4"><button class="btn btn-block" ng-if="endAt<filteredIssuesLength" ng-click="goTo(10)"><span class="glyphicon glyphicon-chevron-down"></span></button></div>
+		</tr>
+	</table>
+
+	<h2><span ng-if="newIssue.counter">#{{newIssue.counter}}</span><span ng-if="!newIssue.counter">New Issue</span>
+		<div style="float: right; font-size: 16px; color: #888;">
+			<button ng-if="!enableRemove" class="btn btn-primary" ng-click="addIssue(newIssue);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span ng-if="!newIssue.counter">Add</span><span ng-if="newIssue.counter">Clone</span></button>
+			<div ng-if="enableRemove" class="btn-group">
+				<button class="btn btn-primary" ng-click="addIssue(newIssue);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span ng-if="!newIssue.counter">Add</span><span ng-if="newIssue.counter">Clone</span></button>
+				<button ng-disabled="!newIssue.counter" class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remove
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu danger" aria-labelledby="dropdownMenu1" style="left:inherit;right:0;">
+					<li><a ng-click="removeIssue(newIssue)" style="cursor:pointer">Yes, I am sure.</a></li>
+				</ul>
+			</div>
+			|
+			<button class="btn btn-default" ng-click="emptyIssue();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> New Issue</button>
+		</div>
+	</h2>
+	
+	<table class="table" ng-init="newIssue={}">
+		<tr>
+			<td ng-repeat="group in detail.groups" width="{{detail.width[$index]}}%">
+				<dl>
+					<div ng-repeat="i in group">
+						<dt>{{issueModel[i].label}}</dt>
+						<dd ng-switch on="issueModel[i].type">
+							<!--<input class="form-control" ng-model="newIssue[issueModel[i].v]" ng-switch-when="date" type="text" >-->
+							<div class="input-group date" ng-switch-when="date">
+							  <input type="text" class="form-control" ng-model="newIssue[issueModel[i].v]"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+							</div>
+							<select class="form-control" ng-switch-when="dropdown" ng-model="newIssue[issueModel[i].v]" ng-init="newIssue[issueModel[i].v] = issueModel[i].lov[0]" ng-options="o for o in issueModel[i].lov"></select>
+							<div ng-switch-when="boolean" style="line-height:34px;"><input type="checkbox" ng-model="newIssue[issueModel[i].v]"></div>
+							<div ng-switch-when="combinedBoolean" style="line-height:34px;"><input type="checkbox" ng-model="newIssue[issueModel[i].v]"></div>
+							<textarea class="form-control" ng-model="newIssue[issueModel[i].v]" ng-switch-when="multi"></textarea>
+							<div ng-switch-when="gallery" class="mgallery">
+								<div ng-repeat="image in newIssue[issueModel[i].v]" ng-click="openImage(image)" class="mthumb" style="background-image: url('{{image}}');">
+									<button class="btn btn-xs btn-danger removeimage" ng-click="removeImage($index)">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</div>
+								<div ng-if="!newIssue[issueModel[i].v]||!newIssue[issueModel[i].v].length">Use Chrome to paste &amp; add a screenshot to this issue</div>
+							</div>
+							<input class="form-control" ng-model="newIssue[issueModel[i].v]" ng-switch-default>
+						</dd>
+					</div>
+				</dl>
+			</td>
+		</tr>
+	</table>
+</div>
+<footer class="footer">
+	<div class="container">
+		<div class="text-muted">
+			<center>
+				<div>Issue Tracker 0.3 &copy; 2016 Fatih Tavukcu, IBM</div>
+				<div>Contact me via <a href="mailto:fatih.tavukcu@de.ibm.com">e-mail</a>.</div>
+			</center>
+		</div>
+	</div>
+</footer>
+</body>

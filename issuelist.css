@@ -1,0 +1,240 @@
+/* CSS declarations go here */
+
+ul.dropdown-menu.danger a {
+	background: transparent;
+	color: #FFFFFF !important;
+}
+
+ul.dropdown-menu.danger{
+	background: #d9534f !important;
+}
+
+ul.dropdown-menu.danger:hover{
+	background: #c9302c !important;
+}
+
+.hidden {
+	display: none;
+}
+
+th {
+	font-weight: 400!important;
+}
+
+div.mthumb {
+	width: 128px;
+	height: 128px;
+	background-size: cover;
+	display: inline-block;
+	margin: 5px;
+	box-shadow: 0 2px 5px 0px rgba(0,0,0,.5);
+	position: relative;
+	cursor: zoom-in;
+}
+
+div.mgallery {
+	overflow: auto;
+	height: 140px;
+
+}
+
+button.removeimage {
+	position:absolute;
+	right: 0;
+	display: none;
+	cursor: pointer;
+}
+
+div.mthumb:hover button.removeimage {
+	display: inline-block;
+}
+
+body > div:nth-child(3) {
+	display: none;
+}
+
+.lovstatus {
+	font-weight: bold;
+}
+
+.lovstatus.status0 { color: #FF0040 }
+.lovstatus.status1 { color: #4a5 }
+.lovstatus.status2 { color: #FFA700 }
+.lovstatus.status3 { color: #888 }
+
+.lovcriticality.criticality0 { color: #888 }
+.lovcriticality.criticality1 { color: #FFA700 }
+.lovcriticality.criticality2 { color: #FF0040 }
+
+body {
+	font-family: "open sans", helvetica, arial, sans serif;
+}
+
+.form-control {
+	border-radius: 0;
+}
+
+.form-control-inline + a.sorter {
+	cursor: pointer;
+	position: absolute;
+	margin-left: -16px;
+	margin-top: 8px;
+}
+
+.form-control-inline {
+	width: auto;
+	display: inline-block;
+}
+
+.btn {
+	border-radius: 0;
+}
+
+input[type="checkbox"]:after {
+	font-family: "Glyphicons Halflings";
+	font-weight: normal;
+	background: #fff;
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	position: relative;
+	top: -5px;
+	content: "";
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	padding: 2px 3px;
+	color: #337ab7;
+}
+
+input[type="checkbox"]:checked:after {
+	content: "\e013";
+}
+
+.input-group-addon {
+	border-radius: 0;
+}
+
+/*
+body {
+  font-family: sans-serif;
+  background-color: #315481;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 0;
+  margin: 0;
+
+  font-size: 14px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100%;
+  background: white;
+}
+
+header {
+  background: #d2edf4;
+  padding: 20px 15px 15px 15px;
+  position: relative;
+}
+
+#login-buttons {
+  display: block;
+}
+
+h1 {
+  font-size: 1.5em;
+  margin: 0;
+  margin-bottom: 10px;
+  display: inline-block;
+  margin-right: 1em;
+}
+
+form {
+  margin-top: 10px;
+  margin-bottom: -10px;
+  position: relative;
+}
+
+.new-task input {
+  box-sizing: border-box;
+  padding: 10px;
+  background: rgba(255, 255, 255, .5);
+  border: none;
+  width: 100%;
+  padding-right: 80px;
+  font-size: 1em;
+}
+
+.new-task input:focus{
+  outline: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
+.delete {
+  float: right;
+  font-weight: bold;
+  background: none;
+  font-size: 1em;
+  border: none;
+  position: relative;
+}
+
+li {
+  position: relative;
+  list-style: none;
+  padding: 15px;
+  border-bottom: #eee solid 1px;
+}
+
+li .text {
+  margin-left: 10px;
+}
+
+li.checked {
+  color: #888;
+}
+
+li.checked .text {
+  text-decoration: line-through;
+}
+
+li.private {
+  background: #eee;
+  border-color: #ddd;
+}
+
+header .hide-completed {
+  float: right;
+}
+
+.toggle-private {
+  margin-left: 5px;
+}
+
+@media (max-width: 600px) {
+  li {
+    padding: 12px 15px;
+  }
+
+  .search {
+    width: 150px;
+    clear: both;
+  }
+
+  .new-task input {
+    padding-bottom: 5px;
+  }
+}
+*/
